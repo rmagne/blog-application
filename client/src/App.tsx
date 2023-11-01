@@ -13,6 +13,8 @@ import UserContext, {
 } from "./contexts/user";
 import { useNavigate } from "react-router-dom";
 import AuthRoutes from "./components/authRoutes";
+import Edit from "./pages/edit";
+import { Validate } from "./modules/auth";
 
 export interface IApplicationProps {}
 
@@ -24,7 +26,7 @@ const App: React.FC<IApplicationProps> = (props: any) => {
 		CheckLocalStorageForCredentials();
 	}, []);
 
-	const CheckLocalStorageForCredentials = () => {
+	const CheckLocalStorageForCredentials = async () => {
 		const fire_token = localStorage.getItem("fire_token");
 		if (fire_token === null) {
 			userDispatch({
@@ -33,7 +35,12 @@ const App: React.FC<IApplicationProps> = (props: any) => {
 			});
 			return;
 		} else {
-			// Validate with backend
+			try {
+				const user = await Validate(fire_token);
+				userDispatch({ type: "login", payload: { user, fire_token } });
+			} catch (error) {
+				userDispatch({ type: "logout", payload: initialUserState });
+			}
 		}
 	};
 
@@ -46,15 +53,8 @@ const App: React.FC<IApplicationProps> = (props: any) => {
 				<Routes>
 					<Route path="/" element={<Home />} />
 
-					<Route
-						path="/blog"
-						element={
-							<AuthRoutes>
-								<Blog />
-							</AuthRoutes>
-						}
-					/>
-
+					<Route path="/edit" element={<Edit />} />
+					<Route path="/blog" element={<Blog />} />
 					<Route path="/login" element={<Login />} />
 				</Routes>
 			</Layout>
