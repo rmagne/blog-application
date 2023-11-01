@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
+import userRoutes from "./routes/user";
 
 //For env File
 dotenv.config();
@@ -25,6 +26,9 @@ mongoose
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+
+//routes
+app.use("/users", userRoutes);
 
 app.listen(port, () => {
 	console.log(`Server is Fire at http://localhost:${port}`);
