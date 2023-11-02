@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { IUserProps } from "../interfaces/user";
+import IUserProps from "../interfaces/user";
 
 export const DEFAULT_USER_INFO: IUserProps = {
 	uid: "",

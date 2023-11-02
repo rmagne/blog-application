@@ -52,9 +52,8 @@ const App: React.FC<IApplicationProps> = (props: any) => {
 			<Layout>
 				<Routes>
 					<Route path="/" element={<Home />} />
-
 					<Route path="/edit" element={<Edit />} />
-					<Route path="/blog" element={<Blog />} />
+					<Route path="/blog/:blog_id" element={<Blog />} />
 					<Route path="/login" element={<Login />} />
 				</Routes>
 			</Layout>

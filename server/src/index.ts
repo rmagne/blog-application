@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user";
+import blogRoutes from "./routes/blog";
 
 //For env File
 dotenv.config();
@@ -29,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use("/users", userRoutes);
+app.use("/blogs", blogRoutes);
 
 app.listen(port, () => {
 	console.log(`Server is Fire at http://localhost:${port}`);

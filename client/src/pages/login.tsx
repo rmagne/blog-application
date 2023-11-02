@@ -7,7 +7,7 @@ import {
 	Container,
 	Row
 } from "reactstrap";
-import { IPageProps } from "../interfaces/page";
+import IPageProps from "../interfaces/page";
 import { Authenticate, signInWithGoogle } from "../modules/auth";
 import { useContext, useState } from "react";
 import ErrorText from "../components/errorText.";
@@ -15,7 +15,7 @@ import UserContext from "../contexts/user";
 import { useNavigate } from "react-router-dom";
 
 const Login: React.FC<IPageProps> = () => {
-	const [error, setError] = useState("");
+	const [error, setError] = useState<string>("");
 	const userContext = useContext(UserContext);
 	const navigate = useNavigate();
 
