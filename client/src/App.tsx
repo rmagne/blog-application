@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Blog from "./pages/blog";
+import Blog from "./pages/readblog";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Navbar from "./components/navbar";
-import Layout from "./components/layout";
 import { useEffect, useReducer } from "react";
 import UserContext, {
 	userReducer,
@@ -13,7 +12,7 @@ import UserContext, {
 } from "./contexts/user";
 import { useNavigate } from "react-router-dom";
 import AuthRoutes from "./components/authRoutes";
-import Edit from "./pages/edit";
+import Edit from "./pages/addblog";
 import { Validate } from "./modules/auth";
 
 export interface IApplicationProps {}
@@ -49,14 +48,12 @@ const App: React.FC<IApplicationProps> = (props: any) => {
 	return (
 		<UserContext.Provider value={userContextValues}>
 			<Navbar />
-			<Layout>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/edit" element={<Edit />} />
-					<Route path="/blog/:blog_id" element={<Blog />} />
-					<Route path="/login" element={<Login />} />
-				</Routes>
-			</Layout>
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/edit" element={<Edit />} />
+				<Route path="/blog/:blog_id" element={<Blog />} />
+				<Route path="/login" element={<Login />} />
+			</Routes>
 		</UserContext.Provider>
 	);
 };

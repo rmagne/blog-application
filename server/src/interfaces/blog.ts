@@ -7,4 +7,5 @@ export default interface IBlog extends Document {
 	text: string;
 	picture: string;
 	author: IUser;
+	date: string;
 }

@@ -6,7 +6,9 @@ import mongoose from "mongoose";
 const readBlog = async (req: Request, res: Response) => {
 	const blogId: string = req.params._id;
 	try {
-		const blog: IBlog | null = await Blog.findById(blogId);
+		const blog: IBlog | null = await Blog.findById(blogId)
+			.populate("author", "name")
+			.exec();
 		if (blog) {
 			res.status(200).json(blog);
 		} else {
@@ -21,7 +23,9 @@ const readBlog = async (req: Request, res: Response) => {
 
 const readAllBlogs = async (req: Request, res: Response) => {
 	try {
-		const blogs: IBlog[] = await Blog.find().populate("author").exec();
+		const blogs: IBlog[] = await Blog.find()
+			.populate("author", "name")
+			.exec();
 
 		if (blogs) {
 			res.status(200).json(blogs);
@@ -53,13 +57,15 @@ const readMyBlogs = async (req: Request, res: Response) => {
 const addBlog = async (req: Request, res: Response) => {
 	try {
 		const { title, text, summary, picture, author } = req.body;
+		const date = new Date();
 		const newBlog: IBlog = new Blog({
 			_id: new mongoose.Types.ObjectId(),
 			title,
 			text,
 			summary,
 			picture,
-			author
+			author,
+			date
 		});
 		await newBlog.save();
 		res.status(200).json(newBlog);

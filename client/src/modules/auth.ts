@@ -5,7 +5,7 @@ import IUserProps from "../interfaces/user";
 const provider = new GoogleAuthProvider();
 const auth = getAuth(app);
 
-const API_BASE = "http://localhost:5000";
+const API_BASE: string = "http://localhost:5000";
 
 if (!API_BASE) throw new Error("API_BASE is not defined!");
 

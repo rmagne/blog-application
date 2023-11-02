@@ -7,4 +7,5 @@ export default interface IBlogProps extends Document {
 	picture?: string;
 	author: IUserProps;
 	_id: string;
+	date: string;
 }

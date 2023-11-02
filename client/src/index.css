@@ -17,11 +17,6 @@ code {
     monospace;
 }
 
-
-
-
-.navbarLayout{
-  padding: 0 52px;
-  display: flex;
+body{
+  padding-top: 70px;
 }
-

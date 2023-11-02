@@ -16,7 +16,7 @@ import ErrorText from "../components/errorText.";
 import { useNavigate } from "react-router-dom";
 import IUserProps from "../interfaces/user";
 
-const API_BASE = "http://localhost:5000";
+const API_BASE: string = "http://localhost:5000";
 
 if (!API_BASE) throw new Error("API_BASE is not defined!");
 
@@ -61,40 +61,55 @@ const Home: React.FC<IPageProps> = () => {
 					<Row>
 						<Col>
 							<ErrorText error={error} />
-							{blogs.map((blog) => {
-								return (
-									<Card className="mb-4">
-										{blog.picture ? (
-											<img
-												src={blog.picture}
-												alt="Placeholder Image"
-											/>
-										) : null}
-										<CardBody>
-											<CardTitle tag="h5">
-												{blog.title}
-											</CardTitle>
-											<CardText>{blog.summary}</CardText>
-											<Container className="p-0 d-flex justify-content-between align-items-center">
-												<Button
-													id={blog._id}
-													onClick={() =>
-														navigate(
-															`/blog/${blog._id}`
-														)
-													}
-												>
-													Read
-												</Button>
+							{blogs
+								.sort((a, b) => {
+									let dateA = new Date(a.date).getTime();
+									let dateB = new Date(b.date).getTime();
+									return dateB - dateA;
+								})
+								.map((blog) => {
+									return (
+										<Card className="mb-4">
+											{blog.picture ? (
+												<img
+													src={blog.picture}
+													alt="Placeholder Image"
+												/>
+											) : null}
+											<CardBody>
+												<CardTitle tag="h5">
+													{blog.title}
+												</CardTitle>
 												<CardText>
-													Created by
-													{" " + blog.author.name}
+													{blog.summary}
 												</CardText>
-											</Container>
-										</CardBody>
-									</Card>
-								);
-							})}
+												<Container className="p-0 d-flex justify-content-between align-items-center">
+													<Button
+														id={blog._id}
+														onClick={() =>
+															navigate(
+																`/blog/${blog._id}`
+															)
+														}
+													>
+														Read
+													</Button>
+													<CardText>
+														Created by
+														{" " +
+															blog.author
+																.name}{" "}
+														on
+														{" " +
+															new Date(
+																blog.date
+															).toLocaleDateString()}
+													</CardText>
+												</Container>
+											</CardBody>
+										</Card>
+									);
+								})}
 						</Col>
 					</Row>
 				</Container>
