@@ -17,30 +17,38 @@ const NavBar = () => {
 	};
 
 	return (
-		<nav className="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top px-4">
+		<nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top px-4">
 			{" "}
 			<a className="navbar-brand" href="/">
 				Blog app
 			</a>
 			<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 				<li className="nav-item">
-					<Button onClick={() => navigate("/")}>Home</Button>
+					<a className="nav-link" href="/">
+						Home
+					</a>
 				</li>
 				{user._id === "" ? (
 					<li className="nav-item">
-						<Button onClick={() => navigate("/login")}>
+						<a className="nav-link" href="/login">
 							Login
-						</Button>
+						</a>
 					</li>
 				) : (
 					<>
 						<li className="nav-item">
-							<Button onClick={() => navigate("/edit")}>
+							<a className="nav-link" href="/add">
 								Post a blog
-							</Button>
+							</a>
 						</li>
 						<li>
-							<Button onClick={() => Logout()}>Logout</Button>
+							<a
+								className="nav-link"
+								href="/"
+								onClick={() => Logout()}
+							>
+								Logout
+							</a>
 						</li>
 					</>
 				)}

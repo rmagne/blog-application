@@ -13,6 +13,8 @@ import { useContext, useState } from "react";
 import ErrorText from "../components/errorText.";
 import UserContext from "../contexts/user";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 const Login: React.FC<IPageProps> = () => {
 	const [error, setError] = useState<string>("");
@@ -20,8 +22,6 @@ const Login: React.FC<IPageProps> = () => {
 	const navigate = useNavigate();
 
 	const SignIn = async () => {
-		if (error !== "") setError("");
-
 		try {
 			const result = await signInWithGoogle();
 			const user = result.user;
@@ -45,7 +45,7 @@ const Login: React.FC<IPageProps> = () => {
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.error(error.message);
-				setError(error.message);
+				setError("An error occurred during login.");
 			} else {
 				console.error("An error occurred during login.");
 				setError("An error occurred during login.");
@@ -71,12 +71,12 @@ const Login: React.FC<IPageProps> = () => {
 							<CardBody className="text-center">
 								<Button
 									onClick={() => SignIn()}
-									style={{
-										backgroundColor: "#ea4335",
-										borderColor: "#ea4335"
-									}}
+									className="btn-danger"
 								>
-									<i className="fab fa-google mr-2"></i>
+									<FontAwesomeIcon
+										icon={faGoogle}
+										className="me-2"
+									/>
 									Sign in with Google
 								</Button>
 								<ErrorText error={error} />

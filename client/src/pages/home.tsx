@@ -1,20 +1,10 @@
-import {
-	Container,
-	Row,
-	Col,
-	Card,
-	CardBody,
-	CardTitle,
-	CardText,
-	Button
-} from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 
 import IPageProps from "../interfaces/page";
 import IBlogProps from "../interfaces/blog";
 import { useEffect, useState } from "react";
 import ErrorText from "../components/errorText.";
-import { useNavigate } from "react-router-dom";
-import IUserProps from "../interfaces/user";
+import BlogPreview from "../components/blogPreview";
 
 const API_BASE: string = "http://localhost:5000";
 
@@ -23,7 +13,6 @@ if (!API_BASE) throw new Error("API_BASE is not defined!");
 const Home: React.FC<IPageProps> = () => {
 	const [blogs, setBlogs] = useState<IBlogProps[]>([]);
 	const [error, setError] = useState<string>("");
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		getBlogs();
@@ -68,47 +57,7 @@ const Home: React.FC<IPageProps> = () => {
 									return dateB - dateA;
 								})
 								.map((blog) => {
-									return (
-										<Card className="mb-4">
-											{blog.picture ? (
-												<img
-													src={blog.picture}
-													alt="Placeholder Image"
-												/>
-											) : null}
-											<CardBody>
-												<CardTitle tag="h5">
-													{blog.title}
-												</CardTitle>
-												<CardText>
-													{blog.summary}
-												</CardText>
-												<Container className="p-0 d-flex justify-content-between align-items-center">
-													<Button
-														id={blog._id}
-														onClick={() =>
-															navigate(
-																`/blog/${blog._id}`
-															)
-														}
-													>
-														Read
-													</Button>
-													<CardText>
-														Created by
-														{" " +
-															blog.author
-																.name}{" "}
-														on
-														{" " +
-															new Date(
-																blog.date
-															).toLocaleDateString()}
-													</CardText>
-												</Container>
-											</CardBody>
-										</Card>
-									);
+									return <BlogPreview blog={blog} />;
 								})}
 						</Col>
 					</Row>
