@@ -5,7 +5,11 @@ import {
 	Input,
 	Label,
 	Form,
-	FormFeedback
+	FormFeedback,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter
 } from "reactstrap";
 import IPageProps from "../interfaces/page";
 import { useContext, useEffect, useState } from "react";
@@ -41,6 +45,10 @@ const EditBlog: React.FC<IPageProps> = () => {
 
 	const [publishing, setPublishing] = useState<boolean>(false);
 	const [deleting, setDeleting] = useState<boolean>(false);
+
+	const [modal, setModal] = useState(false);
+
+	const toggle = () => setModal(!modal);
 
 	const userContext = useContext(UserContext);
 	const user = userContext.userState.user;
@@ -140,6 +148,7 @@ const EditBlog: React.FC<IPageProps> = () => {
 
 	const handleDelete = async () => {
 		await deleteBlog();
+		toggle();
 		setDeleting(true);
 	};
 
@@ -177,10 +186,7 @@ const EditBlog: React.FC<IPageProps> = () => {
 					>
 						Edit
 					</Button>
-					<Button
-						className="btn-danger"
-						onClick={() => handleDelete()}
-					>
+					<Button className="btn-danger" onClick={toggle}>
 						Delete
 					</Button>
 				</Container>
@@ -245,6 +251,23 @@ const EditBlog: React.FC<IPageProps> = () => {
 						<ErrorText error={error} />
 						<ActionButtons />
 					</Form>
+					<Modal isOpen={modal} toggle={toggle}>
+						<ModalHeader toggle={toggle}>
+							Are you sure that you want to delete this blog ?
+						</ModalHeader>
+
+						<ModalFooter>
+							<Button className="btn-secondary" onClick={toggle}>
+								Cancel
+							</Button>
+							<Button
+								className="btn-danger"
+								onClick={() => handleDelete()}
+							>
+								Delete
+							</Button>
+						</ModalFooter>
+					</Modal>
 				</Container>
 			</Container>
 		</Container>
