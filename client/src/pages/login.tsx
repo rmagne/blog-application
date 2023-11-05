@@ -12,7 +12,7 @@ import { Authenticate, signInWithGoogle } from "../modules/auth";
 import { useContext, useState } from "react";
 import ErrorText from "../components/errorText.";
 import UserContext from "../contexts/user";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
@@ -20,6 +20,9 @@ const Login: React.FC<IPageProps> = () => {
 	const [error, setError] = useState<string>("");
 	const userContext = useContext(UserContext);
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	const isLogin = location.pathname.includes("login");
 
 	const SignIn = async () => {
 		try {
@@ -77,7 +80,7 @@ const Login: React.FC<IPageProps> = () => {
 										icon={faGoogle}
 										className="me-2"
 									/>
-									Sign in with Google
+									Sign {isLogin ? "in" : "up"} with Google
 								</Button>
 								<ErrorText error={error} />
 							</CardBody>

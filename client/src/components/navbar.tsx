@@ -1,7 +1,6 @@
 import { useContext, useReducer } from "react";
-import UserContext, { initialUserState, userReducer } from "../contexts/user";
+import UserContext from "../contexts/user";
 import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
 
 const NavBar = () => {
 	const userContext = useContext(UserContext);
@@ -29,16 +28,28 @@ const NavBar = () => {
 					</a>
 				</li>
 				{user._id === "" ? (
-					<li className="nav-item">
-						<a className="nav-link" href="/login">
-							Login
-						</a>
-					</li>
+					<>
+						<li className="nav-item">
+							<a className="nav-link" href="/login">
+								Login
+							</a>
+						</li>
+						<li className="nav-item">
+							<a className="nav-link" href="/register">
+								Sign up
+							</a>
+						</li>
+					</>
 				) : (
 					<>
 						<li className="nav-item">
 							<a className="nav-link" href="/add">
 								Post a blog
+							</a>
+						</li>
+						<li className="nav-item">
+							<a className="nav-link" href="/myblogs">
+								Manage my posts
 							</a>
 						</li>
 						<li>

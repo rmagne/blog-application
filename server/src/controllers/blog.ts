@@ -14,9 +14,9 @@ const readBlog = async (req: Request, res: Response) => {
 		} else {
 			res.status(404).json({ "Not found": "This blog does not exist" });
 		}
-	} catch (error) {
+	} catch (error: any) {
 		return res.status(500).json({
-			error
+			error: error.message
 		});
 	}
 };
@@ -32,24 +32,32 @@ const readAllBlogs = async (req: Request, res: Response) => {
 		} else {
 			res.status(404).json({ "Not found": "No blogs to display" });
 		}
-	} catch (error) {
+	} catch (error: any) {
 		return res.status(500).json({
-			error
+			error: error.message
 		});
 	}
 };
 
 const readMyBlogs = async (req: Request, res: Response) => {
+	const author: string = req.params.author;
 	try {
-		const blogs: IBlog[] = await Blog.find({ author: req.body.author });
-		if (blogs) {
+		if (!mongoose.Types.ObjectId.isValid(author)) {
+			return res.status(400).json("Invalid User ID");
+		}
+		const blogs: IBlog[] = await Blog.find({
+			author: author
+		});
+		if (blogs.length > 0) {
 			res.status(200).json(blogs);
 		} else {
-			res.status(404).json({ "Not found": "No blogs to display" });
+			res.status(404).json({
+				message: "No blogs found for the given author"
+			});
 		}
-	} catch (error) {
+	} catch (error: any) {
 		return res.status(500).json({
-			error
+			error: error.message
 		});
 	}
 };
@@ -69,9 +77,9 @@ const addBlog = async (req: Request, res: Response) => {
 		});
 		await newBlog.save();
 		res.status(200).json(newBlog);
-	} catch (error) {
+	} catch (error: any) {
 		return res.status(500).json({
-			error
+			error: error.message
 		});
 	}
 };
@@ -93,9 +101,9 @@ const editBlog = async (req: Request, res: Response) => {
 		);
 		await blog?.save();
 		res.status(200).json(blog);
-	} catch (error) {
+	} catch (error: any) {
 		return res.status(500).json({
-			error
+			error: error.message
 		});
 	}
 };
@@ -109,9 +117,9 @@ const deleteBlog = async (req: Request, res: Response) => {
 		} else {
 			res.status(404).json({ "Not found": "This blog does not exist" });
 		}
-	} catch (error) {
+	} catch (error: any) {
 		return res.status(500).json({
-			error
+			error: error.message
 		});
 	}
 };

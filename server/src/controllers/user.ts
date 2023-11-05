@@ -79,7 +79,7 @@ const readAll = async (req: Request, res: Response) => {
 		if (users) {
 			return res.status(200).json(users);
 		} else {
-			return res.status(401).json("No users found");
+			return res.status(404).json("No users found");
 		}
 	} catch (err) {
 		res.status(500).json({ error: err });

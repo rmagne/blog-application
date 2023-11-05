@@ -8,11 +8,15 @@ import UserContext, { userReducer, initialUserState } from "./contexts/user";
 import AddBlog from "./pages/addblog";
 import { Validate } from "./modules/auth";
 import EditBlog from "./pages/editblog";
+import MyBlogs from "./pages/manageblogs";
+import NoMatch from "./components/noMatch";
 
 export interface IApplicationProps {}
 
 const App: React.FC<IApplicationProps> = (props: any) => {
 	const [userState, userDispatch] = useReducer(userReducer, initialUserState);
+
+	const userContextValues = { userState, userDispatch };
 
 	useEffect(() => {
 		CheckLocalStorageForCredentials();
@@ -36,17 +40,18 @@ const App: React.FC<IApplicationProps> = (props: any) => {
 		}
 	};
 
-	const userContextValues = { userState, userDispatch };
-
 	return (
 		<UserContext.Provider value={userContextValues}>
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/myblogs" element={<MyBlogs />} />
 				<Route path="/add" element={<AddBlog />} />
 				<Route path="/blog/:blog_id" element={<Blog />} />
 				<Route path="/edit/:blog_id" element={<EditBlog />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Login />} />
+				<Route path="*" element={<NoMatch />} />
 			</Routes>
 		</UserContext.Provider>
 	);
