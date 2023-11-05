@@ -28,7 +28,7 @@ const Blog: React.FC<IPageProps> = () => {
 
 	const getBlog = async (): Promise<IBlogProps> => {
 		try {
-			const response = await fetch(API_BASE + `/blogs/${blog_id}`);
+			const response = await fetch(`/blogs/${blog_id}`);
 
 			if (!response.ok) {
 				setError("Error: Unable to retrieve blog");

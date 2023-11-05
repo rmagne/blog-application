@@ -4,6 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user";
 import blogRoutes from "./routes/blog";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
 //For env File
 dotenv.config();
@@ -21,7 +23,7 @@ if (!db_uri) {
 mongoose
 	.connect(db_uri)
 	.then(() => console.log("Connected to DB"))
-	.catch((err) => console.log(err));
+	.catch((err: any) => console.log(err));
 
 //middlewares
 app.use(express.json());
@@ -34,4 +36,11 @@ app.use("/blogs", blogRoutes);
 
 app.listen(port, () => {
 	console.log(`Server is Fire at http://localhost:${port}`);
+});
+
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "dist")));
+app.get("/", (req, res) => {
+	res.sendFile(path.join(__dirname, "dist", "index.html"));
 });

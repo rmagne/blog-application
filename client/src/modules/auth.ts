@@ -18,7 +18,7 @@ export const Authenticate = async (
 	name: string,
 	fire_token: string
 ): Promise<IUserProps> => {
-	const response = await fetch(`${API_BASE}/users/login`, {
+	const response = await fetch(`/users/login`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const Authenticate = async (
 };
 
 export const Validate = async (fire_token: string): Promise<IUserProps> => {
-	const response = await fetch(`${API_BASE}/users/validate`, {
+	const response = await fetch(`/users/validate`, {
 		method: "GET",
 		headers: {
 			Authorization: `Bearer ${fire_token}`

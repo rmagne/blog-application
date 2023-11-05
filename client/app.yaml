@@ -1,0 +1,10 @@
+runtime: nodejs16
+# service : service_name
+
+handlers: 
+- url: /
+static-files: build/index.html
+upload: build/index.html
+
+- url: /
+static_dir: build

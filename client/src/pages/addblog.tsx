@@ -44,7 +44,7 @@ const AddBlog: React.FC<IPageProps> = () => {
 
 	const postBlog = async () => {
 		try {
-			const response = await fetch(API_BASE + "/blogs/new", {
+			const response = await fetch("/blogs/new", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

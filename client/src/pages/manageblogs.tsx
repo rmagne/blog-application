@@ -55,7 +55,7 @@ const MyBlogs: React.FC<IPageProps> = () => {
 	const getUserBlogs = async (): Promise<IBlogProps[]> => {
 		try {
 			await CheckLocalStorageForCredentials();
-			const response = await fetch(API_BASE + `/blogs/myblogs/${author}`);
+			const response = await fetch(`/blogs/myblogs/${author}`);
 
 			if (!response.ok) {
 				setError("Error: Unable to retrieve blogs");

@@ -62,7 +62,7 @@ const EditBlog: React.FC<IPageProps> = () => {
 
 	const getBlogToEdit = async (): Promise<IBlogProps> => {
 		try {
-			const response = await fetch(API_BASE + `/blogs/${blog_id}`);
+			const response = await fetch(`/blogs/${blog_id}`);
 
 			if (!response.ok) {
 				setError("Error: Unable to retrieve blog");
@@ -85,7 +85,7 @@ const EditBlog: React.FC<IPageProps> = () => {
 
 	const editBlog = async () => {
 		try {
-			const response = await fetch(API_BASE + `/blogs/edit/${blog_id}`, {
+			const response = await fetch(`/blogs/edit/${blog_id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json"
@@ -114,12 +114,9 @@ const EditBlog: React.FC<IPageProps> = () => {
 
 	const deleteBlog = async () => {
 		try {
-			const response = await fetch(
-				API_BASE + `/blogs/delete/${blog_id}`,
-				{
-					method: "DELETE"
-				}
-			);
+			const response = await fetch(`/blogs/delete/${blog_id}`, {
+				method: "DELETE"
+			});
 
 			if (!response.ok) {
 				setError("Error: Unable to delete blog");
