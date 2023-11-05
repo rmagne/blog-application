@@ -22,6 +22,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SuccessText from "../components/successText";
 import IBlogProps from "../interfaces/blog";
+import IUserProps from "../interfaces/user";
 
 const API_BASE: string = "http://localhost:5000";
 
@@ -46,13 +47,13 @@ const EditBlog: React.FC<IPageProps> = () => {
 	const [publishing, setPublishing] = useState<boolean>(false);
 	const [deleting, setDeleting] = useState<boolean>(false);
 
-	const [modal, setModal] = useState(false);
+	const [modal, setModal] = useState<boolean>(false);
 
 	const toggle = () => setModal(!modal);
 
 	const userContext = useContext(UserContext);
-	const user = userContext.userState.user;
-	const author = user._id;
+	const user: IUserProps = userContext.userState.user;
+	const author: String = user._id;
 	const navigate = useNavigate();
 
 	useEffect(() => {

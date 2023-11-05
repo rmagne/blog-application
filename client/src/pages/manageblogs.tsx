@@ -7,6 +7,7 @@ import ErrorText from "../components/errorText.";
 import BlogPreview from "../components/blogPreview";
 import UserContext, { initialUserState, userReducer } from "../contexts/user";
 import { Validate } from "../modules/auth";
+import IUserProps from "../interfaces/user";
 
 const API_BASE: string = "http://localhost:5000";
 
@@ -18,8 +19,8 @@ const MyBlogs: React.FC<IPageProps> = () => {
 
 	const userContext = useContext(UserContext);
 	const userDispatch = userContext.userDispatch;
-	const user = userContext.userState.user;
-	const author = user._id;
+	const user: IUserProps = userContext.userState.user;
+	const author: String = user._id;
 
 	useEffect(() => {
 		const checkUserAndFetchBlogs = async () => {

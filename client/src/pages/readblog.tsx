@@ -5,6 +5,7 @@ import IBlogProps from "../interfaces/blog";
 import { Button, Container } from "reactstrap";
 import ErrorText from "../components/errorText.";
 import UserContext from "../contexts/user";
+import IUserProps from "../interfaces/user";
 
 const API_BASE: string = "http://localhost:5000";
 
@@ -16,8 +17,8 @@ const Blog: React.FC<IPageProps> = () => {
 	const [error, setError] = useState<string>("");
 
 	const userContext = useContext(UserContext);
-	const user = userContext.userState.user;
-	const author = user._id;
+	const user: IUserProps = userContext.userState.user;
+	const author: String = user._id;
 
 	const navigate = useNavigate();
 

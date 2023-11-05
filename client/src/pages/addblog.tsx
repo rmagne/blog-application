@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SuccessText from "../components/successText";
+import IUserProps from "../interfaces/user";
 
 const API_BASE: string = "http://localhost:5000";
 
@@ -37,8 +38,8 @@ const AddBlog: React.FC<IPageProps> = () => {
 	const [error, setError] = useState<string>("");
 
 	const userContext = useContext(UserContext);
-	const user = userContext.userState.user;
-	const author = user._id;
+	const user: IUserProps = userContext.userState.user;
+	const author: String = user._id;
 	const navigate = useNavigate();
 
 	const postBlog = async () => {
